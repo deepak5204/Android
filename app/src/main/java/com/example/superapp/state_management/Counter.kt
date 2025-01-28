@@ -12,32 +12,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.superapp.ui.theme.SuperAppTheme
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-
 
 
 private val base_url = "https://..."
 //private var count = 0; // normal Integer not able to recalled the composable when changes
 //private  var count by mutableIntStateOf(0)
 @Composable
-fun Counter(modifier: Modifier = Modifier) {
+fun Counter(
+    count : Int,
+    onCountClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
 //    var count by remember { // not remember after Configuration change
 //        mutableIntStateOf(0)
 //    }
 
-    var count by rememberSaveable { // remember after configuration change
-        mutableIntStateOf(0)
-    }
+
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         Button(
             onClick = { // not a composable lambda, it is a normal lambda
-                count++
+                onCountClick()
             }
         ) {
 //            count++ // this will infinite loop because of recomposition when state change
@@ -52,6 +49,9 @@ fun Counter(modifier: Modifier = Modifier) {
 @Composable
 private fun CounterPreview() {
     SuperAppTheme {
-        Counter()
+        Counter(
+            count = 0,
+            onCountClick = {}
+        )
     }
 }
