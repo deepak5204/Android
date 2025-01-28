@@ -59,8 +59,8 @@ dependencies {
     implementation (libs.androidx.activity.compose.v180)
     implementation(libs.androidx.material3.window.size)
     implementation(libs.androidx.adaptive.android)
-
     implementation (libs.ui)
     implementation (libs.material3)
+    implementation(libs.androidx.runtime)
 
 }
