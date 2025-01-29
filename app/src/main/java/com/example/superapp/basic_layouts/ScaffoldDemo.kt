@@ -120,7 +120,7 @@ fun ScaffoldDemo(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-//                .padding(paddingValue)
+                .padding(paddingValue)
                 .background(Color.Gray)
         ){
             Text(text = "Hello World")
