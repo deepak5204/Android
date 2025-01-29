@@ -3,6 +3,9 @@ package com.example.superapp.state_management.number__guess
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.superapp.ui.theme.SuperAppTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 
@@ -45,8 +49,39 @@ fun NumberGuessScreen(
             value = state.numberText,
             onValueChange = { newText ->
                 onAction(NumberGuessAction.OnNumberTextChange(newText))
-            }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            )
         )
+
+        Button(
+            onClick = {
+                onAction(NumberGuessAction.OnGuessClick)
+            }
+        ) {
+            Text(
+                text = "Make Guess"
+            )
+        }
+
+        if(state.guessText != null) {
+            Text(
+                text = state.guessText
+            )
+        }
+
+        if(state.isGuessCorrect){
+            Button(
+                onClick = {
+                    onAction(NumberGuessAction.OnStartNewGameButtonClick)
+                }
+            ) {
+                Text(
+                    text = "Start New Game"
+                )
+            }
+        }
     }
 
 }
