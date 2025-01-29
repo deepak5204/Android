@@ -1,0 +1,64 @@
+package com.example.superapp.state_management.number__guess
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.superapp.ui.theme.SuperAppTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+
+
+@Composable
+fun NumberGuessScreenRoot(modifier: Modifier = Modifier) {
+    val viewModel = viewModel<NumberGuessViewModel>()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    NumberGuessScreen(
+        state = state,
+        onAction = viewModel::onAction, // passing this lambda directly from viewmodel reference
+        modifier = modifier
+    )
+}
+
+@Composable
+fun NumberGuessScreen(
+    state : NumberGuessState,
+    onAction: (NumberGuessAction) -> Unit ,
+    modifier: Modifier = Modifier
+) {
+
+
+    Column (
+        modifier = modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
+    ){
+        TextField(
+            value = state.numberText,
+            onValueChange = { newText ->
+                onAction(NumberGuessAction.OnNumberTextChange(newText))
+            }
+        )
+    }
+
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun NumberGuessScreenPreview() {
+    SuperAppTheme {
+        NumberGuessScreen(
+            modifier = Modifier,
+            onAction = {},
+            state = NumberGuessState()
+        )
+    }
+}
