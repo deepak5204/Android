@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -16,13 +15,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.superapp.ui.theme.SuperAppTheme
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun TodoScreenRoot(modifier: Modifier = Modifier){
+fun TodoScreenRoot(modifier: Modifier = Modifier) {
     val viewModel = viewModel<TodoViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -44,46 +44,34 @@ fun TodoScreen(
         modifier = modifier
             .fillMaxWidth()
             .padding(12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
             modifier = Modifier
-                .weight(0.8f),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+                .weight(0.9f),
+            verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically)
         ) {
-            if (state.isChecked == false) {
-                Text(
-                    text = state.title, fontSize = 20.sp, fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = state.description,
-                    fontSize = 20.sp,
-                )
-            } else {
-                Text(
-                    text = state.title,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    textDecoration = TextDecoration.LineThrough
-                )
-                Text(
-                    text = state.description,
-                    fontSize = 20.sp,
-                    textDecoration = TextDecoration.LineThrough
-                )
-            }
-
+            Text(
+                text = state.title,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textDecoration = if (state.isChecked) TextDecoration.LineThrough else null,
+            )
+            Text(
+                text = state.description,
+                fontSize = 20.sp,
+                textDecoration = if (state.isChecked) TextDecoration.LineThrough else null,
+            )
         }
 
         Checkbox(
             checked = state.isChecked,
-            onCheckedChange = {isChecked ->
+            onCheckedChange = { isChecked ->
                 onAction(TodoAction.TodoAction(isChecked))
             },
-            modifier = modifier.weight(0.2f)
+            modifier = modifier.weight(0.1f)
+                .align(Alignment.CenterVertically)
         )
-
     }
 }
 
