@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
-import kotlin.math.sqrt
 
 
 @Composable
@@ -54,7 +52,7 @@ fun TodoScreen(
                 .weight(0.8f),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            if (!state.isChecked) {
+            if (state.isChecked == false) {
                 Text(
                     text = state.title, fontSize = 20.sp, fontWeight = FontWeight.Bold
                 )
@@ -81,7 +79,7 @@ fun TodoScreen(
         Checkbox(
             checked = state.isChecked,
             onCheckedChange = {isChecked ->
-                onAction(TodoAction.isTodoDone(isChecked))
+                onAction(TodoAction.TodoAction(isChecked))
             },
             modifier = modifier.weight(0.2f)
         )
