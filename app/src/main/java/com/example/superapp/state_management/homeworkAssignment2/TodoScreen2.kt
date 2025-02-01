@@ -1,6 +1,5 @@
 package com.example.superapp.state_management.homeworkAssignment2
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,15 +19,32 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.superapp.state_management.homeworkAssignment1.TodoAction
-import com.example.superapp.state_management.homeworkAssignment1.TodoState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.superapp.ui.theme.SuperAppTheme
+import androidx.compose.runtime.getValue
+
+@Composable
+fun TodoScreen2Root(modifier: Modifier = Modifier) {
+
+    val viewModel = viewModel<TodoViewModel2>()
+    val state by viewModel.state2.collectAsStateWithLifecycle()
+
+    TodoScreen2(
+        modifier = modifier,
+        state = state,
+        onAction = viewModel::todoAction2
+    )
+
+
+}
 
 @Composable
 fun TodoScreen2(
     modifier: Modifier = Modifier,
-    onAction: (TodoAction) -> Unit,
-    state: TodoState) {
+    state: TodoState2,
+    onAction: (TodoAction2) -> Unit
+    ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -55,13 +71,13 @@ fun TodoScreen2(
         }
 
         Checkbox(
-            checked = false,
-//            state.isChecked,
+            checked = state.isChecked,
             onCheckedChange = {
-//                isChecked ->
-//                onAction(TodoAction.TodoAction(isChecked))
+                isChecked ->
+                onAction(TodoAction2.TodoAction2(isChecked))
             },
-            modifier = modifier.weight(0.1f)
+            modifier = modifier
+                .weight(0.1f)
                 .align(Alignment.CenterVertically)
         )
 
@@ -83,7 +99,7 @@ private fun TodoScreen2Preview() {
         TodoScreen2(
             modifier = Modifier,
             onAction = {},
-            state = TodoState()
+            state = TodoState2()
         )
     }
 
