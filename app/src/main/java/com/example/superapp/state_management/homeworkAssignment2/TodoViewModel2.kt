@@ -5,34 +5,43 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class TodoViewModel2: ViewModel() {
 
-    private var _todo2 = MutableStateFlow(TodoState2())
-    var state2 = _todo2.asStateFlow()
 
+class TodoViewModel2 : ViewModel() {
+
+    private val _todoList = MutableStateFlow<List<TodoState2>>(emptyList())
+    val todoList = _todoList.asStateFlow()
+
+    private var idCounter = 1
 
     fun todoAction2(action: TodoAction2) {
         when (action) {
-            is TodoAction2.TodoAction2 -> {
-                val isChecked = state2.value.isChecked
-
-                if(isChecked == false){
-                    _todo2.update {
-                        it.copy(
-                            isChecked = true,
-                        )
-                    }
+            is TodoAction2.AddTodo -> {
+                _todoList.update { currentList ->
+                    currentList + TodoState2(
+                        id = idCounter++,
+                        title = action.title,
+                        description = action.description
+                    )
                 }
-                else {
-                    _todo2.update {
-                        it.copy(
-                            isChecked = false,
-                        )
+            }
+
+            is TodoAction2.ToggleCheck -> {
+                _todoList.update { currentList ->
+                    currentList.map { todo ->
+                        if (todo.id == action.id) {
+                            todo.copy(isChecked = !todo.isChecked)
+                        } else todo
                     }
                 }
             }
+
+            is TodoAction2.DeleteTodo -> {
+                _todoList.update { currentList ->
+                    currentList.filterNot { it.id == action.id }
+                }
+            }
+
         }
     }
-
-
 }
