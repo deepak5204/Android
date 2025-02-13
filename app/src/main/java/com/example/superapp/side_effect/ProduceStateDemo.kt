@@ -17,7 +17,6 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun ProduceStateDemo(modifier: Modifier = Modifier) {
-
     val counter by produceState(0) {
         while (true) {
             delay(1000L)
