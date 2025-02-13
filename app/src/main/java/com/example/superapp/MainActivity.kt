@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.superapp.side_effect.LaunchedEffectDemo
 import com.example.superapp.state_management.homeworkAssignment1.TodoScreenRoot
 import com.example.superapp.state_management.homeworkAssignment2.TodoScreen2Root
 import com.example.superapp.state_management.number__guess.NumberGuessScreenRoot
@@ -20,9 +21,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             SuperAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    LaunchedEffectDemo()
 //                    NumberGuessScreenRoot(modifier = Modifier.padding(innerPadding))
 //                    TodoScreenRoot(modifier = Modifier.padding(innerPadding))
-                    TodoScreen2Root(modifier = Modifier.padding(innerPadding))
+//                    TodoScreen2Root(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
