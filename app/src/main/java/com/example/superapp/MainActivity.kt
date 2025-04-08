@@ -33,25 +33,25 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    var value by remember { mutableIntStateOf(0) }
-
-                    SideEffectDemo(
-                        modifier = Modifier,
-                        value = value
-                    )
-
-                    Button(
-                        onClick = {
-                            value++
-                        },
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentSize()
-                    ) {
-                        Text(
-                            text = "Counter"
-                        )
-                    }
+//                    var value by remember { mutableIntStateOf(0) }
+//
+//                    SideEffectDemo(
+//                        modifier = Modifier,
+//                        value = value
+//                    )
+//
+//                    Button(
+//                        onClick = {
+//                            value++
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .wrapContentSize()
+//                    ) {
+//                        Text(
+//                            text = "Counter"
+//                        )
+//                    }
 
 
 //                    var toggle by remember { mutableStateOf(false) }
