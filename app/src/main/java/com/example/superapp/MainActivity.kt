@@ -7,9 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +19,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.superapp.basic_modifiers.TriangleShape
+import com.example.superapp.composition_locals.CompositionLocalDemo
+import com.example.superapp.composition_locals.LocalShape
+import com.example.superapp.composition_locals.MyApp
+import com.example.superapp.composition_locals.MyShapedButton
 import com.example.superapp.side_effect.DisposableEffectDemo
 import com.example.superapp.side_effect.LaunchedEffectDemo
 import com.example.superapp.side_effect.SideEffectDemo
@@ -31,7 +38,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SuperAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                CompositionLocalProvider(LocalShape provides TriangleShape) {
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                        MyShapedButton(modifier = Modifier.padding(innerPadding))
+                        MyApp()
+                    }
+                }
+
 
 //                    var value by remember { mutableIntStateOf(0) }
 //
@@ -75,7 +88,7 @@ class MainActivity : ComponentActivity() {
 //                    NumberGuessScreenRoot(modifier = Modifier.padding(innerPadding))
 //                    TodoScreenRoot(modifier = Modifier.padding(innerPadding))
 //                    TodoScreen2Root(modifier = Modifier.padding(innerPadding))
-                }
+
             }
         }
     }
