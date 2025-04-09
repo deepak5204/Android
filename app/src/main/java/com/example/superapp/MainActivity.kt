@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.superapp.basic_modifiers.FocusManagementModifiers
 import com.example.superapp.basic_modifiers.TriangleShape
 import com.example.superapp.composition_locals.CompositionLocalDemo
 import com.example.superapp.composition_locals.LocalShape
@@ -40,11 +41,13 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 CompositionLocalProvider(LocalShape provides TriangleShape) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                        MyShapedButton(modifier = Modifier.padding(innerPadding))
-                        MyApp()
+                        FocusManagementModifiers(modifier = Modifier.padding(innerPadding))
                     }
                 }
 
+
+//                MyShapedButton(modifier = Modifier.padding(innerPadding))
+//                MyApp()
 
 //                    var value by remember { mutableIntStateOf(0) }
 //
