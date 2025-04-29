@@ -39,28 +39,25 @@ fun DraggableModifiers(modifier: Modifier = Modifier) {
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .offset {
-                    offset.round()
-                }
+        Box(modifier = Modifier
+            .size(100.dp)
+            .offset {
+                offset.round()
+            }
 //                .draggable2D(
 //                    state = rememberDraggable2DState {
 //                        offset += it
 //                    }
 //                )
-                .draggable(
-                    state = rememberDraggableState {
-                        offset += Offset(
-                            x = it,
-                            y = 0f
-                        )
-                    },
-                    orientation = Orientation.Horizontal
-                )
-                .clip(CircleShape)
-                .background(Color.Red)
+            .draggable(
+                state = rememberDraggableState {
+                    offset += Offset(
+                        x = it, y = 0f
+                    )
+                }, orientation = Orientation.Horizontal
+            )
+            .clip(CircleShape)
+            .background(Color.Red)
         )
     }
 }
