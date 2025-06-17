@@ -25,6 +25,7 @@ import com.example.superapp.composition_locals.CompositionLocalDemo
 import com.example.superapp.composition_locals.LocalShape
 import com.example.superapp.composition_locals.MyApp
 import com.example.superapp.composition_locals.MyShapedButton
+import com.example.superapp.mesurements.SizePositionModifiersDemo
 import com.example.superapp.side_effect.DisposableEffectDemo
 import com.example.superapp.side_effect.LaunchedEffectDemo
 import com.example.superapp.side_effect.SideEffectDemo
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 CompositionLocalProvider(LocalShape provides TriangleShape) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        FocusManagementModifiers(modifier = Modifier.padding(innerPadding))
+                        SizePositionModifiersDemo(modifier = Modifier.padding(innerPadding))
                     }
                 }
 
@@ -91,6 +92,8 @@ class MainActivity : ComponentActivity() {
 //                    NumberGuessScreenRoot(modifier = Modifier.padding(innerPadding))
 //                    TodoScreenRoot(modifier = Modifier.padding(innerPadding))
 //                    TodoScreen2Root(modifier = Modifier.padding(innerPadding))
+
+//                FocusManagementModifiers(modifier = Modifier.padding(innerPadding))
 
             }
         }
