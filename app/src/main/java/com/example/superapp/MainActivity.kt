@@ -25,6 +25,7 @@ import com.example.superapp.composition_locals.CompositionLocalDemo
 import com.example.superapp.composition_locals.LocalShape
 import com.example.superapp.composition_locals.MyApp
 import com.example.superapp.composition_locals.MyShapedButton
+import com.example.superapp.mesurements.LazyScrolling
 import com.example.superapp.mesurements.SizePositionModifiersDemo
 import com.example.superapp.side_effect.DisposableEffectDemo
 import com.example.superapp.side_effect.LaunchedEffectDemo
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 CompositionLocalProvider(LocalShape provides TriangleShape) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        SizePositionModifiersDemo(modifier = Modifier.padding(innerPadding))
+                        LazyScrolling(modifier = Modifier.padding(innerPadding))
                     }
                 }
 
@@ -94,6 +95,8 @@ class MainActivity : ComponentActivity() {
 //                    TodoScreen2Root(modifier = Modifier.padding(innerPadding))
 
 //                FocusManagementModifiers(modifier = Modifier.padding(innerPadding))
+
+//                SizePositionModifiersDemo(modifier = Modifier.padding(innerPadding))
 
             }
         }
