@@ -7,6 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.superapp.ui.theme.SuperAppTheme
 
+
+// measure children -> measure the layout itself -> place children
+// measure children -> subcompose -> measure the layout itself -> place children
+
 @Composable
 fun BoxWithConstraintDemo(modifier: Modifier = Modifier) {
     BoxWithConstraints {

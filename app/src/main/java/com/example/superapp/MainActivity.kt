@@ -4,8 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -19,6 +24,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.example.superapp.basic_modifiers.FocusManagementModifiers
 import com.example.superapp.basic_modifiers.TriangleShape
 import com.example.superapp.composition_locals.CompositionLocalDemo
@@ -27,6 +34,7 @@ import com.example.superapp.composition_locals.MyApp
 import com.example.superapp.composition_locals.MyShapedButton
 import com.example.superapp.mesurements.LazyScrolling
 import com.example.superapp.mesurements.SizePositionModifiersDemo
+import com.example.superapp.mesurements.SubcomposePagedRow
 import com.example.superapp.side_effect.DisposableEffectDemo
 import com.example.superapp.side_effect.LaunchedEffectDemo
 import com.example.superapp.side_effect.SideEffectDemo
@@ -34,6 +42,7 @@ import com.example.superapp.state_management.homeworkAssignment1.TodoScreenRoot
 import com.example.superapp.state_management.homeworkAssignment2.TodoScreen2Root
 import com.example.superapp.state_management.number__guess.NumberGuessScreenRoot
 import com.example.superapp.ui.theme.SuperAppTheme
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +52,35 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 CompositionLocalProvider(LocalShape provides TriangleShape) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        LazyScrolling(modifier = Modifier.padding(innerPadding))
+                        var page = remember { mutableIntStateOf(0) }
+
+                        Column(modifier = Modifier.padding(innerPadding)) {
+                            SubcomposePagedRow(
+                                modifier = Modifier
+                                    .background(Color.Red),
+                                page = page.value
+                            ) {
+                                (1..1000).forEach {
+                                    Box(
+                                        modifier = Modifier
+                                            .height(100.dp)
+                                            .width(Random.nextInt(300).dp)
+                                            .background(Color(Random.nextInt()))
+                                    )
+                                }
+                            }
+
+                            Button(onClick = { page.intValue++ }) {
+                                Text(
+                                    text = "Next Page"
+                                )
+                            }
+                        }
                     }
                 }
 
 
+//                LazyScrolling(modifier = Modifier.padding(innerPadding))
 //                MyShapedButton(modifier = Modifier.padding(innerPadding))
 //                MyApp()
 

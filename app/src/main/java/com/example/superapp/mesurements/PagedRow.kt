@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
@@ -74,38 +75,122 @@ fun PagedRow(
 }
 
 
+
+@Composable
+fun SubcomposePagedRow(
+    page: Int,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    SubcomposeLayout(
+        modifier = modifier
+    ) {constraints ->
+
+        val pages = mutableListOf<List<Placeable>>()
+        var currentPage = mutableListOf<Placeable>()
+        var currentPageWidth = 0
+
+        val measurables = subcompose("content", content)
+        var counter = 0
+        for(measurable in measurables) {
+            counter++
+           val  placeable  = measurable.measure(constraints)
+            if(currentPageWidth + placeable.width > constraints.maxWidth){
+                if(pages.size == page){
+                    break
+                }
+                pages.add(currentPage)
+                currentPage = mutableListOf()
+                currentPageWidth = 0
+            }
+            currentPage.add(placeable)
+            currentPageWidth += placeable.width
+        }
+
+        println("we measured $counter composable")
+        if (currentPage.isNotEmpty()){
+            pages.add(currentPage)
+        }
+
+        val pageItems = pages.getOrNull(page) ?: emptyList()
+        val maxHeight = pageItems.fastMaxOfOrNull { it.height } ?: 0
+
+        layout(constraints.maxWidth, maxHeight) {
+            var xOffset = 0
+            pageItems.fastForEach { placeable ->
+                placeable.place(xOffset,0)
+                xOffset += placeable.width
+            }
+        }
+    }
+
+}
+
+
 @Preview
 //    (showBackground = true)
 @Composable
 private fun PagedRowPreview() {
     SuperAppTheme {
-        PagedRow(
+
+        SubcomposePagedRow(
             page = 0,
         ) {
-        Box(
-            modifier = Modifier
-                .width(300.dp)
-                .height(150.dp)
-                .background(Color.Red)
-        )
-        Box(
-            modifier = Modifier
-                .width(50.dp)
-                .height(100.dp)
-                .background(Color.Yellow)
-        )
-        Box(
-            modifier = Modifier
-                .width(90.dp)
-                .height(100.dp)
-                .background(Color.Blue)
-        )
-        Box(
-            modifier = Modifier
-                .width(300.dp)
-                .height(150.dp)
-                .background(Color.Green)
-        )
-    }
+            Box(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(150.dp)
+                    .background(Color.Red)
+            )
+            Box(
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(100.dp)
+                    .background(Color.Yellow)
+            )
+            Box(
+                modifier = Modifier
+                    .width(90.dp)
+                    .height(100.dp)
+                    .background(Color.Blue)
+            )
+            Box(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(150.dp)
+                    .background(Color.Green)
+            )
+        }
+
+//        PagedRow(
+//            page = 0,
+//        ) {
+//        Box(
+//            modifier = Modifier
+//                .width(300.dp)
+//                .height(150.dp)
+//                .background(Color.Red)
+//        )
+//        Box(
+//            modifier = Modifier
+//                .width(50.dp)
+//                .height(100.dp)
+//                .background(Color.Yellow)
+//        )
+//        Box(
+//            modifier = Modifier
+//                .width(90.dp)
+//                .height(100.dp)
+//                .background(Color.Blue)
+//        )
+//        Box(
+//            modifier = Modifier
+//                .width(300.dp)
+//                .height(150.dp)
+//                .background(Color.Green)
+//        )
+//    }
+
+
     }
 }
