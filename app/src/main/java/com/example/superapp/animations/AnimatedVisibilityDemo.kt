@@ -5,6 +5,9 @@ import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseInExpo
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -52,32 +55,19 @@ fun AnimatedVisibilityDemo(modifier: Modifier = Modifier) {
         AnimatedVisibility(
             visible = toggle,
             enter = scaleIn(
-                animationSpec = tween(
-                    durationMillis = 5000,
-                    delayMillis = 300,
-                    easing = easing
-                )
-            ) + fadeIn(
-                animationSpec = tween(
-                    durationMillis = 5000,
-                    delayMillis = 300,
-                    easing = easing
-                )
+                animationSpec = keyframes {
+                    durationMillis = 5000
+                    0.75f at 2500 using EaseInExpo
+                    0.25f at 3750 using LinearEasing
+                    1f at 5000 using FastOutSlowInEasing
+                }
             ),
             exit = scaleOut(
-                animationSpec = tween(
-                    durationMillis = 5000,
-                    delayMillis = 300,
-                    easing = easing
-                )
-            ) + fadeOut(
-                animationSpec = tween(
-                    durationMillis = 5000,
-                    delayMillis = 300,
-                    easing = easing
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioHighBouncy
                 )
             )
-        ){
+        ) {
             Text(
                 text = "Hello world",
                 modifier = Modifier
@@ -92,6 +82,75 @@ fun AnimatedVisibilityDemo(modifier: Modifier = Modifier) {
             )
         }
 
+//        AnimatedVisibility(
+//            visible = toggle,
+//            enter = scaleIn(
+//                animationSpec = spring(
+//                    dampingRatio = Spring.DampingRatioHighBouncy
+//                )
+//            ),
+//            exit = scaleOut(
+//                animationSpec = spring(
+//                    dampingRatio = Spring.DampingRatioHighBouncy
+//                )
+//            )
+//        ) {
+//            Text(
+//                text = "Hello world",
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(200.dp)
+//                    .padding(16.dp)
+//                    .border(
+//                        width = 5.dp,
+//                        color = Color.Red
+//                    )
+//                    .wrapContentSize()
+//            )
+//        }
+
+//        AnimatedVisibility(
+//            visible = toggle,
+//            enter = scaleIn(
+//                animationSpec = tween(
+//                    durationMillis = 5000,
+//                    delayMillis = 300,
+//                    easing = easing
+//                )
+//            ) + fadeIn(
+//                animationSpec = tween(
+//                    durationMillis = 5000,
+//                    delayMillis = 300,
+//                    easing = easing
+//                )
+//            ),
+//            exit = scaleOut(
+//                animationSpec = tween(
+//                    durationMillis = 5000,
+//                    delayMillis = 300,
+//                    easing = easing
+//                )
+//            ) + fadeOut(
+//                animationSpec = tween(
+//                    durationMillis = 5000,
+//                    delayMillis = 300,
+//                    easing = easing
+//                )
+//            )
+//        ){
+//            Text(
+//                text = "Hello world",
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(200.dp)
+//                    .padding(16.dp)
+//                    .border(
+//                        width = 5.dp,
+//                        color = Color.Red
+//                    )
+//                    .wrapContentSize()
+//            )
+//        }
         Text(
             text = "Hello World"
         )
