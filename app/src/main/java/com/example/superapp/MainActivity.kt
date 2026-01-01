@@ -35,6 +35,7 @@ import com.example.superapp.composition_locals.MyShapedButton
 import com.example.superapp.mesurements.LazyScrolling
 import com.example.superapp.mesurements.SizePositionModifiersDemo
 import com.example.superapp.mesurements.SubcomposePagedRow
+import com.example.superapp.performance.MyScreen
 import com.example.superapp.side_effect.DisposableEffectDemo
 import com.example.superapp.side_effect.LaunchedEffectDemo
 import com.example.superapp.side_effect.SideEffectDemo
@@ -52,30 +53,9 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 CompositionLocalProvider(LocalShape provides TriangleShape) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        var page = remember { mutableIntStateOf(0) }
-
-                        Column(modifier = Modifier.padding(innerPadding)) {
-                            SubcomposePagedRow(
-                                modifier = Modifier
-                                    .background(Color.Red),
-                                page = page.value
-                            ) {
-                                (1..1000).forEach {
-                                    Box(
-                                        modifier = Modifier
-                                            .height(100.dp)
-                                            .width(Random.nextInt(300).dp)
-                                            .background(Color(Random.nextInt()))
-                                    )
-                                }
-                            }
-
-                            Button(onClick = { page.intValue++ }) {
-                                Text(
-                                    text = "Next Page"
-                                )
-                            }
-                        }
+                        MyScreen(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding))
                     }
                 }
 
