@@ -35,6 +35,7 @@ import com.example.superapp.composition_locals.MyShapedButton
 import com.example.superapp.mesurements.LazyScrolling
 import com.example.superapp.mesurements.SizePositionModifiersDemo
 import com.example.superapp.mesurements.SubcomposePagedRow
+import com.example.superapp.performance.ImageLoading
 import com.example.superapp.performance.MyScreen
 import com.example.superapp.side_effect.DisposableEffectDemo
 import com.example.superapp.side_effect.LaunchedEffectDemo
@@ -53,7 +54,7 @@ class MainActivity : ComponentActivity() {
             SuperAppTheme {
                 CompositionLocalProvider(LocalShape provides TriangleShape) {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        MyScreen(modifier = Modifier
+                        ImageLoading(modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding))
                     }
